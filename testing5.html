@@ -7,6 +7,13 @@
     var ml_url =  "https://portal.masterloop.net/#/devices/general/"+sn_value;
     window.open(ml_url);
     }
+    var input = document.getElementById("sn_id");
+    input.addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById("link_btn").click();
+        }
+    });
 </script>
 <style>
     body {
@@ -19,10 +26,10 @@
     </style>
 </head>
 <body>
-<div style="text-align:left; margin:8px 5px auto;">
-        <label for="sn_id">Serial number:</label>
+<div style="text-align:center; margin:20px 20px auto;">
+        <!--label for="sn_id">Serial number:</label-->
         <input type="Text" placeholder="Serial number" id="sn_id" maxlength="25" size="25"/>
-        <input type='button' onclick='setURL()' valune='SUBMIT'> 
+        <input type='button' id="link_btn" onclick='setURL()' value='->'> 
 </div>
 </body>
 </html>
