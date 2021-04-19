@@ -1,0 +1,70 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <title>The HTML5 Herald</title>
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="SitePoint">
+  <link rel="stylesheet" href="css/styles.css?v=1.0">
+
+</head>
+
+<body>
+
+    <div style="text-align:center; margin:30px 5px auto;">
+    
+    <label for="sn_id">Serial number:</label>
+    <input type="text" placeholder="Serial number" id="sn_id" maxlength="8" size="10">
+    <input type="submit" id="link_btn" onclick="setURL()">
+    
+    </div>
+    
+<script>
+
+        function setURL() {
+          var sn_value = document.getElementById("sn_id").value;
+          var ml_url = "https://portal.masterloop.net/#/devices/general/" + sn_value;
+          window.open(ml_url);
+        }
+
+        var serial = document.getElementById("sn_id");
+        serial.addEventListener("keydown", function(event) {
+          if (event.keyCode === 13) {
+            setURL(event);
+          }
+        });
+</script>
+
+</body>
+
+<style>
+    body {
+        background-color: #0D1117;
+    }
+
+    label {
+        color: white;
+    }
+
+    input[type=text],
+    select {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        font-size: medium;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    input[type=submit]:hover {
+        background-color: #7B7B7B;
+    }
+
+</style>
+
+</html>
