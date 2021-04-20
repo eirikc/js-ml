@@ -1,0 +1,66 @@
+<!doctype html>
+<!--This is an HTML5 document-->
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <title>Title</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+
+<body>
+
+    <div style="text-align:center; margin:10px 5px auto;">
+
+        <label for="sn_id"></label>
+        <input type="text" placeholder="Serial number" id="sn_id" maxlength="8" size="10">
+        <input type="submit" id="link_btn" onclick="setURL()">
+
+    </div>
+
+
+    <iframe id="MLembed" title="Masterloop page" src="https://portal.masterloop.net/#/devices/listing" frameborder="0"
+        style="overflow:hidden;height:100%;width:100%" height="100%" width="100%">
+    </iframe>
+
+    <script>
+        function setURL() {
+            var sn_value = document.getElementById("sn_id").value;
+            var ml_url = "https://portal.masterloop.net/#/devices/general/" + sn_value;
+            var iframe = document.getElementById("MLembed");
+            document.getElementById("MLembed").src = ml_url;
+        };
+
+        var serial = document.getElementById("sn_id");
+        serial.addEventListener("keydown", function (event) {
+            if (event.keyCode === 13) {
+                setURL(event);
+            }
+        });
+    </script>
+
+</body>
+
+<style>
+    iframe {
+        position: fixed;
+        background: #007DBD;
+        width: 100%;
+        height: 100%;
+
+    }
+
+    body {
+        background-color: #007DBD;
+    }
+
+    label {
+        color: #ffffff;
+    }
+</style>
+
+</html>
