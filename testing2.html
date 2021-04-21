@@ -1,6 +1,14 @@
 <html>
 <head>
-<script>
+
+</head>
+<body>
+<div style="text-align:left; margin:8px 5px auto;">
+        <label for="sn_id">Serial number:</label>
+        <input type="Text" id="sn_id" maxlength="25" size="25"/>
+        <input type='button' onclick='setURL()' value='SUBMIT'> 
+</div>
+    <script>
     function setURL(){
     var sn_value = document.getElementById("sn_id").value;
     //check serial number
@@ -21,12 +29,5 @@ open.window.moveTo(950,150);
         color: white;
     }
     </style>
-</head>
-<body>
-<div style="text-align:left; margin:8px 5px auto;">
-        <label for="sn_id">Serial number:</label>
-        <input type="Text" id="sn_id" maxlength="25" size="25"/>
-        <input type='button' onclick='setURL()' value='SUBMIT'> 
-</div>
 </body>
 </html>
