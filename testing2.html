@@ -1,24 +1,20 @@
+<!-- Opens link in new tab -->
 <html>
 <head>
-
-</head>
-<body>
-<div style="text-align:left; margin:8px 5px auto;">
-        <label for="sn_id">Serial number:</label>
-        <input type="Text" id="sn_id" maxlength="25" size="25"/>
-        <input type='button' onclick='setURL()' value='SUBMIT'> 
-</div>
-    <script>
+<script>
     function setURL(){
     var sn_value = document.getElementById("sn_id").value;
-    //check serial number
-    alert(sn_value );
     var ml_url =  "https://portal.masterloop.net/#/devices/general/"+sn_value;
-
-open = window.open(ml_url,"popup"," menubar =0,toolbar =0,location=0, height=900, width=1000"); 
-open.window.moveTo(950,150); 
-
+    open = window.open(ml_url,"popup"," menubar =0,toolbar =0,location=0, height=900, width=1000"); 
+    open.window.moveTo(950,150); 
     }
+    var input = document.getElementById("sn_id");
+    input.addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById("link_btn").click();
+        }
+    });
 </script>
 <style>
     body {
@@ -29,5 +25,12 @@ open.window.moveTo(950,150);
         color: white;
     }
     </style>
+</head>
+<body>
+<div style="text-align:center; margin:20px 30px auto;">
+        <!--label for="sn_id">Serial number:</label-->
+        <input type="Text" placeholder="Serial number" id="sn_id" maxlength="25" size="25"/>
+        <input type='button' id="link_btn" onclick='setURL()' value='->'> 
+</div>
 </body>
 </html>
