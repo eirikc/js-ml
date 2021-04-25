@@ -19,13 +19,13 @@
     <div class="toolbar">
 
         <input type="text" placeholder="Serial number" id="sn_id" maxlength="12" size="10" onblur="this.value=removeSpaces(this.value);">
-        <input type="submit" id="link_btn" value="➡ Device" onclick="setURL()">
-        <input type="submit" id="link_btn2" value="➡ Observations" onclick="Observations()">
-        <input type="submit" id="link_btn3" value="➡ Commands" onclick="Commands()">
-        <input type="submit" id="link_btn4" value="➡ History" onclick="History()">
-        <input type="submit" id="link_btn5" value="⚡ Charger" onclick="chargerPlots()">
-        <input type="submit" id="link_btn6" value="⚡ Network" onclick="networkPlots()">
-        <input type="submit" id="link_btn7" value="⚡ Equalizer" onclick="equalizerPlots()">
+        <input type="submit" id="link_btn" value="➡ Device" onclick="if(event.ctrlKey) setURLCTRL(); else setURL()">
+        <input type="submit" id="link_btn2" value="➡ Observations" onclick="if(event.ctrlKey) ObservationsCTRL(); else Observations()">
+        <input type="submit" id="link_btn3" value="➡ Commands" onclick="if(event.ctrlKey) CommandsCTRL(); else Commands()">
+        <input type="submit" id="link_btn4" value="➡ History" onclick="if(event.ctrlKey) HistoryCTRL(); else History()">
+        <input type="submit" id="link_btn5" value="⚡ Charger" onclick="if(event.ctrlKey) chargerPlotsCTRL(); else chargerPlots()">
+        <input type="submit" id="link_btn6" value="⚡ Network" onclick="if(event.ctrlKey) networkPlotsCTRL(); else networkPlots()">
+        <input type="submit" id="link_btn7" value="⚡ Equalizer" onclick="if(event.ctrlKey) equalizerPlotsCTRL(); else equalizerPlots()">
     </div>
 
 
@@ -34,10 +34,15 @@
     </iframe>
 
     <script>
+
+//function to remove all spaces in serial text field
         function removeSpaces(string) {
             return string.split(' ').join('');
         }
 
+
+
+//functions for buttons to redirect masterloop embed
         function setURL() {
             var sn_value = document.getElementById("sn_id").value;
             var ml_url = "https://portal.masterloop.net/#/devices/general/" + sn_value;
@@ -80,6 +85,53 @@
             document.getElementById("ml_embed").src = equalizer_url;
         }
 
+        
+
+//CTRL + mouse click functions to open new tabs
+        function setURLCTRL() {
+            var sn_value = document.getElementById("sn_id").value;
+            var ml_url = "https://portal.masterloop.net/#/devices/general/" + sn_value;
+            window.open(ml_url);
+        }
+
+        function ObservationsCTRL() {
+            var sn_value = document.getElementById("sn_id").value;
+            var Observations_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value;
+            window.open(Observations_url);
+        }
+
+        function CommandsCTRL() {
+            var sn_value = document.getElementById("sn_id").value;
+            var Commands_url = "https://portal.masterloop.net/#/devices/quickCommands/" + sn_value;
+            window.open(Commands_url);
+        }
+
+        function HistoryCTRL() {
+            var sn_value = document.getElementById("sn_id").value;
+            var History_url = "https://portal.masterloop.net/#/devices/" + sn_value + "/commandsHistory";
+            window.open(History_url);
+        }
+
+        function chargerPlotsCTRL() {
+            var sn_value = document.getElementById("sn_id").value;
+            var charger_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value + "/plots?filter=[21,38,46,96,104,109,110,114,120,182,183,184,185,194,195,196,197,198,199]";
+            window.open(charger_url);
+        }
+
+        function networkPlotsCTRL() {
+            var sn_value = document.getElementById("sn_id").value;
+            var network_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value + "/plots?filter=[11,46,130,131,132,136,150,141]";
+            window.open(network_url);
+        }
+
+        function equalizerPlotsCTRL() {
+            var sn_value = document.getElementById("sn_id").value;
+            var equalizer_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value + "/plots?filter=[20,31,32,33,34,35,36,50,70,87,89]";
+            window.open(equalizer_url);
+        }
+
+
+//Function for Enter key go to device page
         var serial = document.getElementById("sn_id");
         serial.addEventListener("keydown", function (event) {
             if (event.keyCode === 13) {
