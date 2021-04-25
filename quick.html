@@ -46,42 +46,56 @@
         function setURL() {
             var sn_value = document.getElementById("sn_id").value;
             var ml_url = "https://portal.masterloop.net/#/devices/general/" + sn_value;
+            if (document.getElementById("sn_id").value === "") {
+            return false; }
             document.getElementById("ml_embed").src = ml_url;
         }
 
         function Observations() {
             var sn_value = document.getElementById("sn_id").value;
             var Observations_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value;
+            if (document.getElementById("sn_id").value === "") {
+            return false; }
             document.getElementById("ml_embed").src = Observations_url;
         }
 
         function Commands() {
             var sn_value = document.getElementById("sn_id").value;
             var Commands_url = "https://portal.masterloop.net/#/devices/quickCommands/" + sn_value;
+            if (document.getElementById("sn_id").value === "") {
+            return false; }
             document.getElementById("ml_embed").src = Commands_url;
         }
 
         function History() {
             var sn_value = document.getElementById("sn_id").value;
             var History_url = "https://portal.masterloop.net/#/devices/" + sn_value + "/commandsHistory";
+            if (document.getElementById("sn_id").value === "") {
+            return false; }
             document.getElementById("ml_embed").src = History_url;
         }
 
         function chargerPlots() {
             var sn_value = document.getElementById("sn_id").value;
             var charger_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value + "/plots?filter=[21,38,46,96,104,109,110,114,120,182,183,184,185,194,195,196,197,198,199]";
+            if (document.getElementById("sn_id").value === "") {
+            return false; }
             document.getElementById("ml_embed").src = charger_url;
         }
 
         function networkPlots() {
             var sn_value = document.getElementById("sn_id").value;
             var network_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value + "/plots?filter=[11,46,130,131,132,136,150,141]";
+            if (document.getElementById("sn_id").value === "") {
+            return false; }
             document.getElementById("ml_embed").src = network_url;
         }
 
         function equalizerPlots() {
             var sn_value = document.getElementById("sn_id").value;
             var equalizer_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value + "/plots?filter=[20,31,32,33,34,35,36,50,70,87,89]";
+            if (document.getElementById("sn_id").value === "") {
+            return false; }
             document.getElementById("ml_embed").src = equalizer_url;
         }
 
@@ -91,42 +105,56 @@
         function setURLCTRL() {
             var sn_value = document.getElementById("sn_id").value;
             var ml_url = "https://portal.masterloop.net/#/devices/general/" + sn_value;
+            if (document.getElementById("sn_id").value === "") {
+            return false; }
             window.open(ml_url);
         }
 
         function ObservationsCTRL() {
             var sn_value = document.getElementById("sn_id").value;
             var Observations_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value;
+            if (document.getElementById("sn_id").value === "") {
+            return false; }
             window.open(Observations_url);
         }
 
         function CommandsCTRL() {
             var sn_value = document.getElementById("sn_id").value;
             var Commands_url = "https://portal.masterloop.net/#/devices/quickCommands/" + sn_value;
+            if (document.getElementById("sn_id").value === "") {
+            return false; }
             window.open(Commands_url);
         }
 
         function HistoryCTRL() {
             var sn_value = document.getElementById("sn_id").value;
             var History_url = "https://portal.masterloop.net/#/devices/" + sn_value + "/commandsHistory";
+            if (document.getElementById("sn_id").value === "") {
+            return false; }
             window.open(History_url);
         }
 
         function chargerPlotsCTRL() {
             var sn_value = document.getElementById("sn_id").value;
             var charger_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value + "/plots?filter=[21,38,46,96,104,109,110,114,120,182,183,184,185,194,195,196,197,198,199]";
+            if (document.getElementById("sn_id").value === "") {
+            return false; }
             window.open(charger_url);
         }
 
         function networkPlotsCTRL() {
             var sn_value = document.getElementById("sn_id").value;
             var network_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value + "/plots?filter=[11,46,130,131,132,136,150,141]";
+            if (document.getElementById("sn_id").value === "") {
+            return false; }
             window.open(network_url);
         }
 
         function equalizerPlotsCTRL() {
             var sn_value = document.getElementById("sn_id").value;
             var equalizer_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value + "/plots?filter=[20,31,32,33,34,35,36,50,70,87,89]";
+            if (document.getElementById("sn_id").value === "") {
+            return false; }
             window.open(equalizer_url);
         }
 
