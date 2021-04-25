@@ -18,7 +18,7 @@
 
     <div class="toolbar">
 
-        <input type="text" placeholder="Serial number" id="sn_id" maxlength="8" size="10">
+        <input type="text" placeholder="Serial number" id="sn_id" maxlength="12" size="10" onblur="this.value=removeSpaces(this.value);">
         <input type="submit" id="link_btn" value="➡ Device" onclick="setURL()">
         <input type="submit" id="link_btn2" value="➡ Observations" onclick="Observations()">
         <input type="submit" id="link_btn3" value="➡ Commands" onclick="Commands()">
@@ -34,6 +34,10 @@
     </iframe>
 
     <script>
+        function removeSpaces(string) {
+            return string.split(' ').join('');
+        }
+
         function setURL() {
             var sn_value = document.getElementById("sn_id").value;
             var ml_url = "https://portal.masterloop.net/#/devices/general/" + sn_value;
