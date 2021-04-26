@@ -18,7 +18,19 @@
 
     <div class="toolbar">
 
-        <input type="text" placeholder="Serial number" id="sn_id" maxlength="12" size="10" onblur="this.value=spellCheck(this.value);" oninput="this.value = this.value.toUpperCase();">
+            <!-- Input field for serial number. 
+            All inputs will be spellchecked and corrected to remove spaces 
+            and replace lower case letters with upper case letters --> 
+        <input type="text" 
+        placeholder="Serial number" 
+        id="sn_id" 
+        maxlength="12" size="10" 
+        onblur="this.value=spellCheck(this.value);"
+        onkeydown="this.value=spellCheck(this.value);" 
+        oninput="this.value = this.value.toUpperCase();" >
+
+            <!-- Buttons for Masterloop pages and quick plots.
+            Will check if ctrl is pressed and will open a new tab if true -->
         <input type="submit" id="link_btn" value="➡ Device" onclick="if(event.ctrlKey) setURLCTRL(); else setURL()">
         <input type="submit" id="link_btn2" value="➡ Observations" onclick="if(event.ctrlKey) ObservationsCTRL(); else Observations()">
         <input type="submit" id="link_btn3" value="➡ Commands" onclick="if(event.ctrlKey) CommandsCTRL(); else Commands()">
@@ -35,15 +47,21 @@
 
     <script>
 
-//function to remove all spaces in serial text field
+            //function to remove all spaces in serial text field
         function spellCheck(string) {
             return string.split(' ').join('');
             return string.split(' ').join('');
         }
 
+            //Function for Enter key go to device page
+            var serial = document.getElementById("sn_id");
+        serial.addEventListener("keydown", function (event) {
+            if (event.keyCode === 13) {
+                setURL(event);
+            }
+        });
 
-
-//functions for buttons to redirect masterloop embed
+            //functions for buttons to redirect masterloop embed
         function setURL() {
             var sn_value = document.getElementById("sn_id").value;
             var ml_url = "https://portal.masterloop.net/#/devices/general/" + sn_value;
@@ -102,7 +120,7 @@
 
         
 
-//CTRL + mouse click functions to open new tabs
+            //CTRL + mouse click functions to open new tabs
         function setURLCTRL() {
             var sn_value = document.getElementById("sn_id").value;
             var ml_url = "https://portal.masterloop.net/#/devices/general/" + sn_value;
@@ -158,16 +176,6 @@
             return false; }
             window.open(equalizer_url);
         }
-
-
-//Function for Enter key go to device page
-        var serial = document.getElementById("sn_id");
-        serial.addEventListener("keydown", function (event) {
-            if (event.keyCode === 13) {
-                setURL(event);
-            }
-        });
-
 
     </script>
 
