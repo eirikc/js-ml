@@ -18,7 +18,7 @@
 
     <div class="toolbar">
 
-        <input type="text" placeholder="Serial number" id="sn_id" maxlength="12" size="10" onblur="this.value=removeSpaces(this.value);">
+        <input type="text" placeholder="Serial number" id="sn_id" maxlength="12" size="10" onblur="this.value=spellCheck(this.value);" oninput="this.value = this.value.toUpperCase();">
         <input type="submit" id="link_btn" value="➡ Device" onclick="if(event.ctrlKey) setURLCTRL(); else setURL()">
         <input type="submit" id="link_btn2" value="➡ Observations" onclick="if(event.ctrlKey) ObservationsCTRL(); else Observations()">
         <input type="submit" id="link_btn3" value="➡ Commands" onclick="if(event.ctrlKey) CommandsCTRL(); else Commands()">
@@ -36,7 +36,8 @@
     <script>
 
 //function to remove all spaces in serial text field
-        function removeSpaces(string) {
+        function spellCheck(string) {
+            return string.split(' ').join('');
             return string.split(' ').join('');
         }
 
