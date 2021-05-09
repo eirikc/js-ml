@@ -1,3 +1,4 @@
+
 <!doctype html>
 <!--This is an HTML5 document-->
 <html lang="en">
@@ -23,12 +24,13 @@
             and replace lower case letters with upper case letters --> 
         <input 
         type="text"
+        name="serialfield"
         placeholder="Serial number" 
         id="sn_id" 
+        autocapitalize="characters"
         maxlength="12" size="10" 
         onblur="this.value=spellCheck(this.value)"
-        onkeyup="this.value=spellCheck(this.value)"
-        oninput="this.value=this.value.toUpperCase();" />
+        onkeyup="this.value=spellCheck(this.value)"/>
 
             <!-- Buttons for Masterloop pages and quick plots.
             Will check if ctrl is pressed and will open a new tab if true -->
@@ -48,26 +50,23 @@
     </iframe-->
 
     <script>
+          function forceInputUppercase(e)
+  {
+    var start = e.target.selectionStart;
+    var end = e.target.selectionEnd;
+    e.target.value = e.target.value.toUpperCase();
+    e.target.setSelectionRange(start, end);
+  }
+
+  document.getElementById("sn_id").addEventListener("keyup", forceInputUppercase, true);
+
+
 
             //function to remove all spaces in serial text field
         function spellCheck(string) {
             return string.split(' ').join('');
             return string.split(' ').join('');
         }
-
-        function forceKeyPressUppercase(e) {
-          var charInput = e.keyCode;
-          if((charInput >= 97) && (charInput <= 122)) { // lowercase
-            if(!e.ctrlKey && !e.metaKey && !e.altKey) { // no modifier key
-              var newChar = charInput - 32;
-              var start = e.target.selectionStart;
-              var end = e.target.selectionEnd;
-              e.target.value = e.target.value.substring(0, start) + String.fromCharCode(newChar) + e.target.value.substring(end);
-              e.target.setSelectionRange(start+1, start+1);
-              e.preventDefault();
-        }}}
-        document.getElementById("sn_id").addEventListener("keypress", forceKeyPressUppercase, true);
-         
 
             //Function for Enter key go to device page
             var serial = document.getElementById("sn_id");
