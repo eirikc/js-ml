@@ -9,26 +9,30 @@ function clearErrors() {
   if (error !== null) {
     document.getElementById("error").innerHTML = "";
   }
+}
+
+function postOnReturn(e) {
+  var keycode;
+  document.forms[0]['pf.username'].value = document.forms[0]
+    ['pf.username'].value.trim();
 
 
-  function postOnReturn(e) {
-    document.forms[0]['pf.username'].value = document.forms[0]
-      ['pf.username'].value.trim();
-    var keycode;
+  if (window.event) {
+    keycode = window.event.keyCode;
+  } else if (e) {
+    keycode = e.which;
+  } else {
+    return true;
+  }
 
-    if (window.event) keycode = window.event.keyCode;
-    else if (e) keycode = e.which;
-    else return true;
-
-    if (keycode == 13) {
-      if ($isCustomerInternal == 'false')
-        if ($("#username").val().indexOf("@") === -1) {
-          document.querySelector('.emailError').style.display = 'block';
-          return;
-        }
-      else if ($("#username").val().indexOf("@") !== -1) {
-        document.querySelector('.emailError').style.display = 'none';
+  if (keycode == 13) {
+    if ($isCustomerInternal == 'false') {
+      if ($("#username").val().indexOf("@") === -1) {
+        document.querySelector('.emailError').style.display = 'block';
+        return;
       }
+    } else if ($("#username").val().indexOf("@") !== -1) {
+      document.querySelector('.emailError').style.display = 'none';
       end
       disableFields();
       document.forms[0].submit();
@@ -37,3 +41,4 @@ function clearErrors() {
       return true;
     }
   }
+}
