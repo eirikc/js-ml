@@ -27,8 +27,7 @@
         placeholder="Serial number" 
         id="sn_id" 
         autocapitalize="characters"
-        maxlength="12" size="10" 
-        onblur="this.value=spellCheck(this.value)"/>
+        maxlength="12" size="12" />
 
             <!-- Buttons for Masterloop pages and quick plots.
             Will check if ctrl is pressed and will open a new tab if true -->
@@ -50,10 +49,20 @@
     <script>
 
             //function to remove all spaces in serial text field
-        function spellCheck(string) {
-            return string.split(' ').join('');
-            return string.split(' ').join('');
-        }
+        //function spellCheck(string) {
+           // return string.split(' ').join('');
+           // return string.split(' ').join('');
+
+
+       // }
+
+            document.getElementById('sn_id').addEventListener('input', function() {
+                var position = this.selectionStart;
+  
+                this.value = this.value.replace(/[^a-zA-Z0-9]+/g, '');
+                this.value = this.value.toUpperCase();
+                this.selectionEnd = position;
+            });
 
             //Function for Enter key go to device page
             var serial = document.getElementById("sn_id");
