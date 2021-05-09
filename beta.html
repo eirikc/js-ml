@@ -20,7 +20,7 @@
     <div class="toolbar">
 
             <!-- Input field for serial numbers --> 
-        <input type="text" placeholder="Serial number" id="sn_id" maxlength="12" size="12" />
+        <input type="text" placeholder="Serial number" id="sn_id" maxlength="12" size="11" />
 
             <!-- Buttons for Masterloop pages and quick plots.
             Will check if ctrl is pressed and will open a new tab if true -->
@@ -48,14 +48,14 @@
             this.value = this.value.replace(/[^a-zA-Z0-9]+/g, '');
             this.value = this.value.toUpperCase();
             this.selectionEnd = position;
-            });
+        });
 
             //Function for Enter-key go to device page
         var serial = document.getElementById("sn_id");
             serial.addEventListener("keydown", function (event) {
             if (event.keyCode === 13) {
                 setURL(event);
-            }});
+        }});
 
             // Functions for buttons to redirect masterloop embed
         function setURL() {
@@ -199,52 +199,74 @@
 
     body {
         background-color: #007DBD;
+        margin-top: 0px;
     }
 
-    #link_btn {
-        margin-left: 22px;
-    }
+    .toolbar input[type="submit"] {
+    background: #007DBD;
+    border: 1px solid #007DBD;
+    color: #fff;
+    padding: 0 5px 0;
+    cursor: pointer;
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    transition: all 0.2s;
+    margin-top: 0px;
+    flex-basis:120px;
+  }
+  
+  .toolbar input[type="submit"]:hover {
+    background: #0074ad;
 
-    #link_btn4 {
-        margin-right: 22px;
-    }
+  }
+  
+  .toolbar {
+    display: -webkit-box;
+    display: flex;
+    z-index: 10;
+    position: fixed;
+    left: 0px;
+    width: 100%;
+    height: 64px;
+    box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.151);
+    background: #007DBD;
+    overflow: auto;
+    overflow: overlay;
+  }
+  
+  .toolbar > * {
+    border: 0;
+    font-size: 1rem;
+    border-radius: 0;
+    outline: 0;
+    -webkit-appearance: none;
+  }
+  
+  input[type="text"] {
+    flex-basis:214px;
+    padding: 0 0 0 19px;
+    margin-block: 5px;
+    margin-left: 5px;
 
-    #link_btn5 {
-        color: #008812;
-    }
+  }
+  ::-webkit-scrollbar {
+  width: 20px;
+}
 
-    #link_btn6 {
-        color: #008812;
-    }
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
 
-    #link_btn7 {
-        color: #008812;
-    }
-    
-    #link_btn8 {
-        color: #886800;
+::-webkit-scrollbar-thumb {
+  background-color: #d6dee100;
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+}
 
-    }
-
-    .toolbar {
-        color: red;
-        text-align: left;
-        margin-top: 2px;
-        margin-left: 245px;
-        margin-bottom: 5px;
-    }
-
-    @media (max-width: 1080px) {
-    .toolbar {
-      padding:0;
-      margin-left:0;
-    }}
-
-    #sn_id {
-        margin-bottom: 5px;
-        
-    }
-
+::-webkit-scrollbar-thumb:hover {
+  background-color: #a8bbbf;
+}
 </style>
 
 </html>
