@@ -24,13 +24,13 @@
             and replace lower case letters with upper case letters --> 
         <input 
         type="text"
-        name="serialfield"
         placeholder="Serial number" 
         id="sn_id" 
         autocapitalize="characters"
         maxlength="12" size="10" 
         onblur="this.value=spellCheck(this.value)"
-        onkeyup="this.value=spellCheck(this.value)"/>
+        onkeyup="this.value=spellCheck(this.value)"
+        onkeydown="this.value=spellCheck(this.value)"/>
 
             <!-- Buttons for Masterloop pages and quick plots.
             Will check if ctrl is pressed and will open a new tab if true -->
@@ -45,22 +45,11 @@
     </div>
 
 
-    <!--iframe id="ml_embed" title="Masterloop page" src="https://portal.masterloop.net/#/devices/filter/recent" frameborder="0"
+    <iframe id="ml_embed" title="Masterloop page" src="https://portal.masterloop.net/#/devices/filter/recent" frameborder="0"
         style="overflow:hidden;height:100%;width:100%" height="100%" width="100%">
-    </iframe-->
+    </iframe>
 
     <script>
-          function forceInputUppercase(e)
-  {
-    var start = e.target.selectionStart;
-    var end = e.target.selectionEnd;
-    e.target.value = e.target.value.toUpperCase();
-    e.target.setSelectionRange(start, end);
-  }
-
-  document.getElementById("sn_id").addEventListener("keyup", forceInputUppercase, true);
-
-
 
             //function to remove all spaces in serial text field
         function spellCheck(string) {
