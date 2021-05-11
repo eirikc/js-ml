@@ -1,3 +1,4 @@
+
 <!doctype html>
 <!--This is an HTML5 document-->
 <html lang="en">
@@ -17,17 +18,9 @@
 <body>
 
     <div class="toolbar">
-
-            <!-- Input field for serial number. 
-            All inputs will be spellchecked and corrected to remove spaces 
-            and replace lower case letters with upper case letters --> 
-        <input type="text" 
-        placeholder="Serial number" 
-        id="sn_id" 
-        maxlength="12" size="10" 
-        onblur="this.value=spellCheck(this.value); upCase(this)"
-        onkeydown="this.value=spellCheck(this.value); upCase(this)"
-        oninput="let p=this.selectionStart; this.value=this.value.toUpperCase(); this.setSelectionRange(p, p);" />
+        <img src="https://eirikc.github.io/js-ml/favicon.ico" id="icon" alt="Quick Masterloop" width="auto" height="auto">
+            <!-- Input field for serial numbers --> 
+        <input type="text" placeholder="Serial number" id="sn_id" maxlength="12" size="11" />
 
             <!-- Buttons for Masterloop pages and quick plots.
             Will check if ctrl is pressed and will open a new tab if true -->
@@ -48,26 +41,23 @@
 
     <script>
 
-            //function to remove all spaces in serial text field
-        function spellCheck(string) {
-            return string.split(' ').join('');
-            return string.split(' ').join('');
-        }
-        function upCase(a){
-    setTimeout(function(){
-        a.value = a.value.toUpperCase();
-    }, 1);
-}
-
-            //Function for Enter key go to device page
-            var serial = document.getElementById("sn_id");
-        serial.addEventListener("keydown", function (event) {
-            if (event.keyCode === 13) {
-                setURL(event);
-            }
+            // Spellchecker to ignore everything that isn't characters or numbers
+            // and replace lowercase letters with upper case letters.
+        document.getElementById('sn_id').addEventListener('input', function() {
+            var position = this.selectionStart;
+            this.value = this.value.replace(/[^a-zA-Z0-9]+/g, '');
+            this.value = this.value.toUpperCase();
+            this.selectionEnd = position;
         });
 
-            //functions for buttons to redirect masterloop embed
+            //Function for Enter-key go to device page
+        var serial = document.getElementById("sn_id");
+            serial.addEventListener("keydown", function (event) {
+            if (event.keyCode === 13) {
+                setURL(event);
+        }});
+
+            // Functions for buttons to redirect masterloop embed
         function setURL() {
             var sn_value = document.getElementById("sn_id").value;
             var ml_url = "https://portal.masterloop.net/#/devices/general/" + sn_value;
@@ -198,72 +188,100 @@
         }
 
     </script>
-
 </body>
 
 <style>
+
+    #icon {
+        padding:14px;
+        padding-top:12px;
+    }
+
     iframe {
-        position: fixed;
+        position:fixed;
         left: 0px;
         background: #007DBD;
     }
 
     body {
         background-color: #007DBD;
+        margin-top: 0px;
     }
 
-    label {
-        color: #ffffff;
-    }
+    .toolbar input[type="submit"] {
+    background: #007DBD;
+    border: 1px solid #007DBD;
+    color: #fff;
+    padding: 0 10px 0;
+    cursor: pointer;
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    transition: all 0.2s;
+    margin-top: 2.5px;
+    flex-basis:120px;
+    margin-bottom: 7px;
+  }
+  
+  .toolbar input[type="submit"]:hover {
+    background: #0070a8;
+    border-radius: 3px;
 
-    #link_btn {
-        margin-left: 22px;
+  }
+  
+  .toolbar {
+    display: -webkit-box;
+    display: flex;
+    z-index: 10;
+    position: fixed;
+    left: 0px;
+    width:100%;
+    height: 60px;
+    background: #007DBD;
+    overflow: auto;
+    overflow: overlay;
+    margin-top: 4px;
+  }
+  
+  .toolbar > * {
+    border: 0;
+    font-size: 1rem;
+    border-radius: 0;
+    outline: 0;
+    -webkit-appearance: none;
+  }
+  
+  input[type="text"] {
+    flex-basis:157.5px;
+    padding: 2px 0 0 19px;
+    margin-bottom: 7.5px;
+    margin-left: 0px;
+    margin-right: 7px;
+    margin-top: 3px;
+    border-radius: 2px;
 
-    }
+  }
+  ::-webkit-scrollbar {
+  width: 20px;
+}
 
-    #link_btn4 {
-        margin-right: 22px;
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
 
-    }
+::-webkit-scrollbar-thumb {
+  background-color: #d6dee100;
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+}
 
-    #link_btn5 {
-        color: #008812;
+::-webkit-scrollbar-thumb:hover {
+  background-color: #a8bbbf;
+}
+::placeholder { 
+    color:rgb(161, 161, 161)
+}
 
-    }
-
-    #link_btn6 {
-        color: #008812;
-
-    }
-
-    #link_btn7 {
-        color: #008812;
-        margin-bottom: 5px;
-    }
-    
-    #link_btn8 {
-        color: #886800;
-        margin-bottom: 5px;
-    }
-
-    .toolbar {
-        color: red;
-        text-align: left;
-        margin-top: 10px;
-        margin-bottom: 5px;
-        margin-left: 245px;
-    }
-
-    @media (max-width: 1080px) {
-    .toolbar {
-      padding:0;
-      margin-left:0;
-    }}
-
-    #sn_id {
-        margin-bottom: 5px;
-        
-    }
 
 </style>
 
