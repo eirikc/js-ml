@@ -1,4 +1,3 @@
-
 <!doctype html>
 <!--This is an HTML5 document-->
 <html lang="en">
@@ -10,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <link rel="shortcut icon" href="favicon.ico">
 
 </head>
@@ -18,51 +17,71 @@
 <body>
 
     <div class="toolbar">
-        <img src="https://eirikc.github.io/js-ml/favicon.ico" id="icon" alt="Quick Masterloop" width="auto" height="auto">
-            <!-- Input field for serial numbers --> 
+        <img src="https://eirikc.github.io/js-ml/favicon.ico" id="icon" alt="Quick Masterloop" width="auto"
+            height="auto">
+        <!-- Input field for serial numbers -->
         <input type="text" placeholder="Serial number" id="sn_id" maxlength="12" size="11" />
 
-            <!-- Buttons for Masterloop pages and quick plots.
+        <!-- Buttons for Masterloop pages and quick plots.
             Will check if ctrl is pressed and will open a new tab if true -->
-        <input type="submit" id="link_btn" value="➡ Device" onclick="if(event.ctrlKey) setURLCTRL(); else setURL()">
-        <input type="submit" id="link_btn2" value="➡ Observations" onclick="if(event.ctrlKey) ObservationsCTRL(); else Observations()">
-        <input type="submit" id="link_btn3" value="➡ Commands" onclick="if(event.ctrlKey) CommandsCTRL(); else Commands()">
-        <input type="submit" id="link_btn4" value="➡ History" onclick="if(event.ctrlKey) HistoryCTRL(); else History()">
-        <input type="submit" id="link_btn5" value="⚡ Charger" onclick="if(event.ctrlKey) chargerPlotsCTRL(); else chargerPlots()">
-        <input type="submit" id="link_btn6" value="⚡ Network" onclick="if(event.ctrlKey) networkPlotsCTRL(); else networkPlots()">
-        <input type="submit" id="link_btn7" value="⚡ Equalizer" onclick="if(event.ctrlKey) equalizerPlotsCTRL(); else equalizerPlots()">
-        <input type="submit" id="link_btn8" value="🔥 Derate" onclick="if(event.ctrlKey) deratePlotsCTRL(); else deratePlots()">
+        <!--input type="submit" id="btnDevice" value="➡ Device" onclick="if(event.ctrlKey) setURLCTRL(); else setURL()"-->
+        <button type="submit" id="btnObservations" class="small-buttons" value="Observations" title="Observations"
+            onclick="if(event.ctrlKey) ObservationsCTRL(); else if(event.metaKey) ObservationsCTRL(); else Observations()"><img
+                src="https://eirikc.github.io/js-ml/Observations.svg" style="float: center; width: 30px;"></button>
+        <button type="submit" id="btnSettings" class="small-buttons" value="Settings" title="Settings"
+            onclick="if(event.ctrlKey) SettingsCTRL(); else if(event.metaKey) SettingsCTRL(); else Settings()"><img
+                src="https://eirikc.github.io/js-ml/Settings.svg" style="float: center; width: 30px;"></button>
+        <button type="submit" id="btnCommands" class="small-buttons" value="Commands" title="Control - Quick commands"
+            onclick="if(event.ctrlKey) CommandsCTRL(); else if(event.metaKey) CommandsCTRL(); else Commands()"><img
+                src="https://eirikc.github.io/js-ml/Control.svg" style="float: center; width: 30px;"></button>
+        <button type="submit" id="btnHistory" class="small-buttons" value="History" title="Command history"
+            onclick="if(event.ctrlKey) HistoryCTRL(); else if(event.metaKey) HistoryCTRL(); else History()"><img
+                src="https://eirikc.github.io/js-ml/Commands.svg" style="float: center; width: 30px;"></button>
+        <button type="submit" id="btnCharging" value="Charging" title="Charging plots"
+            onclick="if(event.ctrlKey) chargerPlotsCTRL(); else if(event.metaKey) chargerPlotsCTRL(); else chargerPlots()"><img
+                src="https://eirikc.github.io/js-ml/favicon.ico" style="float: center; width: 20px;">Charging</button>
+        <button type="submit" id="btnNetwork" value="Network" title="Network connectivity plots"
+            onclick="if(event.ctrlKey) networkPlotsCTRL(); else if(event.metaKey) networkPlotsCTRL(); else networkPlots()"><img
+                src="https://eirikc.github.io/js-ml/favicon.ico" style="float: center; width: 20px;">Network</button>
+        <button type="submit" id="btnEqualizer" value="Equalizer" title="Equalizer plots"
+            onclick="if(event.ctrlKey) equalizerPlotsCTRL(); else if(event.metaKey) equalizerPlotsCTRL(); else equalizerPlots()"><img
+                src="https://eirikc.github.io/js-ml/favicon.ico" style="float: center; width: 20px;">Equalizer</button>
+        <button type="submit" id="btnDerate" value="Derate" title="Derating charger plots"
+            onclick="if(event.ctrlKey) deratePlotsCTRL(); else if(event.metaKey) deratePlotsCTRL(); else deratePlots()"><img
+                src="https://eirikc.github.io/js-ml/favicon.ico" style="float: center; width: 20px;">Derating</button>
     </div>
 
 
-    <iframe id="ml_embed" title="Masterloop page" src="https://portal.masterloop.net/#/devices/filter/recent" frameborder="0"
-        style="overflow:hidden;height:100%;width:100%" height="100%" width="100%">
+    <iframe id="ml_embed" title="Masterloop page" src="https://portal.masterloop.net/#/devices/filter/recent"
+        frameborder="0" style="overflow:hidden;height:100%;width:100%" height="100%" width="100%">
     </iframe>
 
     <script>
 
-            // Spellchecker to ignore everything that isn't characters or numbers
-            // and replace lowercase letters with upper case letters.
-        document.getElementById('sn_id').addEventListener('input', function() {
+        // Spellchecker to ignore everything that isn't characters or numbers
+        // and replace lowercase letters with upper case letters.
+        document.getElementById('sn_id').addEventListener('input', function () {
             var position = this.selectionStart;
             this.value = this.value.replace(/[^a-zA-Z0-9]+/g, '');
             this.value = this.value.toUpperCase();
             this.selectionEnd = position;
         });
 
-            //Function for Enter-key go to device page
+        //Function for Enter-key go to device page
         var serial = document.getElementById("sn_id");
-            serial.addEventListener("keydown", function (event) {
+        serial.addEventListener("keydown", function (event) {
             if (event.keyCode === 13) {
                 setURL(event);
-        }});
+            }
+        });
 
-            // Functions for buttons to redirect masterloop embed
+        // Functions for buttons to redirect masterloop embed
         function setURL() {
             var sn_value = document.getElementById("sn_id").value;
             var ml_url = "https://portal.masterloop.net/#/devices/general/" + sn_value;
             if (document.getElementById("sn_id").value === "") {
-            return false; }
+                return false;
+            }
             document.getElementById("ml_embed").src = ml_url;
         }
 
@@ -70,15 +89,26 @@
             var sn_value = document.getElementById("sn_id").value;
             var Observations_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value;
             if (document.getElementById("sn_id").value === "") {
-            return false; }
+                return false;
+            }
             document.getElementById("ml_embed").src = Observations_url;
+        }
+
+        function Settings() {
+            var sn_value = document.getElementById("sn_id").value;
+            var Settings_url = "https://portal.masterloop.net/#/devices/settings/" + sn_value;
+            if (document.getElementById("sn_id").value === "") {
+                return false;
+            }
+            document.getElementById("ml_embed").src = Settings_url;
         }
 
         function Commands() {
             var sn_value = document.getElementById("sn_id").value;
             var Commands_url = "https://portal.masterloop.net/#/devices/quickCommands/" + sn_value;
             if (document.getElementById("sn_id").value === "") {
-            return false; }
+                return false;
+            }
             document.getElementById("ml_embed").src = Commands_url;
         }
 
@@ -86,7 +116,8 @@
             var sn_value = document.getElementById("sn_id").value;
             var History_url = "https://portal.masterloop.net/#/devices/" + sn_value + "/commandsHistory";
             if (document.getElementById("sn_id").value === "") {
-            return false; }
+                return false;
+            }
             document.getElementById("ml_embed").src = History_url;
         }
 
@@ -94,7 +125,8 @@
             var sn_value = document.getElementById("sn_id").value;
             var charger_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value + "/plots?filter=[21,38,46,96,104,109,110,114,120,182,183,184,185,194,195,196,197,198,199]";
             if (document.getElementById("sn_id").value === "") {
-            return false; }
+                return false;
+            }
             document.getElementById("ml_embed").src = charger_url;
         }
 
@@ -102,7 +134,8 @@
             var sn_value = document.getElementById("sn_id").value;
             var network_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value + "/plots?filter=[11,46,130,131,132,136,150,141]";
             if (document.getElementById("sn_id").value === "") {
-            return false; }
+                return false;
+            }
             document.getElementById("ml_embed").src = network_url;
         }
 
@@ -110,24 +143,27 @@
             var sn_value = document.getElementById("sn_id").value;
             var equalizer_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value + "/plots?filter=[29,31,32,33,34,35,36,37,38,39,50,70,87,88,89,100]";
             if (document.getElementById("sn_id").value === "") {
-            return false; }
+                return false;
+            }
             document.getElementById("ml_embed").src = equalizer_url;
         }
-        
+
         function deratePlots() {
             var sn_value = document.getElementById("sn_id").value;
             var derate_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value + "/plots?filter=[115,114,116,150,151,152,153,154,155,160,161,162,163,170]";
             if (document.getElementById("sn_id").value === "") {
-            return false; }
+                return false;
+            }
             document.getElementById("ml_embed").src = derate_url;
         }
 
-            //CTRL + mouse click functions to open new tabs
+        //CTRL + mouse click functions to open new tabs
         function setURLCTRL() {
             var sn_value = document.getElementById("sn_id").value;
             var ml_url = "https://portal.masterloop.net/#/devices/general/" + sn_value;
             if (document.getElementById("sn_id").value === "") {
-            return false; }
+                return false;
+            }
             window.open(ml_url);
         }
 
@@ -135,15 +171,26 @@
             var sn_value = document.getElementById("sn_id").value;
             var Observations_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value;
             if (document.getElementById("sn_id").value === "") {
-            return false; }
+                return false;
+            }
             window.open(Observations_url);
+        }
+
+        function SettingsCTRL() {
+            var sn_value = document.getElementById("sn_id").value;
+            var Settings_url = "https://portal.masterloop.net/#/devices/settings/" + sn_value;
+            if (document.getElementById("sn_id").value === "") {
+                return false;
+            }
+            window.open(Settings_url);
         }
 
         function CommandsCTRL() {
             var sn_value = document.getElementById("sn_id").value;
             var Commands_url = "https://portal.masterloop.net/#/devices/quickCommands/" + sn_value;
             if (document.getElementById("sn_id").value === "") {
-            return false; }
+                return false;
+            }
             window.open(Commands_url);
         }
 
@@ -151,7 +198,8 @@
             var sn_value = document.getElementById("sn_id").value;
             var History_url = "https://portal.masterloop.net/#/devices/" + sn_value + "/commandsHistory";
             if (document.getElementById("sn_id").value === "") {
-            return false; }
+                return false;
+            }
             window.open(History_url);
         }
 
@@ -159,7 +207,8 @@
             var sn_value = document.getElementById("sn_id").value;
             var charger_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value + "/plots?filter=[21,38,46,96,104,109,110,114,120,182,183,184,185,194,195,196,197,198,199]";
             if (document.getElementById("sn_id").value === "") {
-            return false; }
+                return false;
+            }
             window.open(charger_url);
         }
 
@@ -167,7 +216,8 @@
             var sn_value = document.getElementById("sn_id").value;
             var network_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value + "/plots?filter=[11,46,130,131,132,136,150,141]";
             if (document.getElementById("sn_id").value === "") {
-            return false; }
+                return false;
+            }
             window.open(network_url);
         }
 
@@ -175,7 +225,8 @@
             var sn_value = document.getElementById("sn_id").value;
             var equalizer_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value + "/plots?filter=[20,31,32,33,34,35,36,50,70,87,89]";
             if (document.getElementById("sn_id").value === "") {
-            return false; }
+                return false;
+            }
             window.open(equalizer_url);
         }
 
@@ -183,7 +234,8 @@
             var sn_value = document.getElementById("sn_id").value;
             var derate_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value + "/plots?filter=[115,114,116,150,151,152,153,154,155,160,161,162,163,170]";
             if (document.getElementById("sn_id").value === "") {
-            return false; }
+                return false;
+            }
             window.open(derate_url);
         }
 
@@ -191,14 +243,13 @@
 </body>
 
 <style>
-
     #icon {
-        padding:14px;
-        padding-top:12px;
+        padding: 14px;
+        padding-top: 12px;
     }
 
     iframe {
-        position:fixed;
+        position: fixed;
         left: 0px;
         background: #007DBD;
     }
@@ -208,81 +259,88 @@
         margin-top: 0px;
     }
 
-    .toolbar input[type="submit"] {
-    background: #007DBD;
-    border: 1px solid #007DBD;
-    color: #fff;
-    padding: 0 10px 0;
-    cursor: pointer;
-    -webkit-transition: all 0.2s;
-    -moz-transition: all 0.2s;
-    transition: all 0.2s;
-    margin-top: 2.5px;
-    flex-basis:120px;
-    margin-bottom: 7px;
-  }
-  
-  .toolbar input[type="submit"]:hover {
-    background: #0070a8;
-    border-radius: 3px;
+    .toolbar button {
+        background: #007DBD;
+        border: 1px solid #007DBD;
+        color: #fff;
+        cursor: pointer;
+        -webkit-transition: all 0.2s;
+        -moz-transition: all 0.2s;
+        transition: all 0.2s;
+        flex-basis: 120px;
+        max-width: 140px !important;
+        margin-bottom: 7px;
+        margin-top: 2.5px;
+    }
 
-  }
-  
-  .toolbar {
-    display: -webkit-box;
-    display: flex;
-    z-index: 10;
-    position: fixed;
-    left: 0px;
-    width:100%;
-    height: 60px;
-    background: #007DBD;
-    overflow: auto;
-    overflow: overlay;
-    margin-top: 4px;
-  }
-  
-  .toolbar > * {
-    border: 0;
-    font-size: 1rem;
-    border-radius: 0;
-    outline: 0;
-    -webkit-appearance: none;
-  }
-  
-  input[type="text"] {
-    flex-basis:157.5px;
-    padding: 2px 0 0 19px;
-    margin-bottom: 7.5px;
-    margin-left: 0px;
-    margin-right: 7px;
-    margin-top: 3px;
-    border-radius: 2px;
+    .toolbar button img {
+        vertical-align: middle;
+        padding-right: 5px;
+    }
 
-  }
-  ::-webkit-scrollbar {
-  width: 20px;
-}
+    button.small-buttons {
+        flex-basis: 65px !important;
+    }
 
-::-webkit-scrollbar-track {
-  background-color: transparent;
-}
+    .toolbar button:hover {
+        background: #0070a8;
+        border-radius: 3px;
+    }
 
-::-webkit-scrollbar-thumb {
-  background-color: #d6dee100;
-  border-radius: 20px;
-  border: 6px solid transparent;
-  background-clip: content-box;
-}
+    .toolbar {
+        display: -webkit-box;
+        display: flex;
+        z-index: 10;
+        position: fixed;
+        left: 0px;
+        width: 100%;
+        height: 60px;
+        background: #007DBD;
+        overflow: auto;
+        overflow: overlay;
+        margin-top: 4px;
+    }
 
-::-webkit-scrollbar-thumb:hover {
-  background-color: #a8bbbf;
-}
-::placeholder { 
-    color:rgb(161, 161, 161)
-}
+    .toolbar>* {
+        border: 0;
+        font-size: 1rem;
+        border-radius: 0;
+        outline: 0;
+        -webkit-appearance: none;
+    }
 
+    input[type="text"] {
+        flex-basis: 158px;
+        padding: 2px 0 0 19px;
+        margin-bottom: 7.5px;
+        margin-left: 0px;
+        margin-right: 7px;
+        margin-top: 3px;
+        border-radius: 2px;
+    }
 
+    ::-webkit-scrollbar {
+        width: 20px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: #d6dee100;
+        border-radius: 20px;
+        border: 6px solid transparent;
+        background-clip: content-box;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: #a8bbbf;
+    }
+
+    ::placeholder {
+        color: rgb(161, 161, 161)
+    }
 </style>
 
 </html>
