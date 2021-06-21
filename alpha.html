@@ -20,7 +20,7 @@
         <img src="https://eirikc.github.io/js-ml/favicon.ico" id="icon" alt="Quick Masterloop" width="auto"
             height="auto">
         <!-- Input field for serial numbers -->
-        <input type="text" name="Serial number" placeholder="Serial number" id="sn_id" maxlength="12" size="11" />
+        <input type="text" name="Serial number" placeholder="Serial number" id="sn_id" maxlength="12" size="11" autofocus/>
 
         <!-- Buttons for Masterloop pages and quick plots.
             Will check if ctrl is pressed and will open a new tab if true -->
@@ -57,6 +57,10 @@
     </iframe>
 
     <script>
+        // focus text cursor on serial number input on load.
+        window.onload = function() {
+        var input = document.getElementById("sn_id").focus();
+        }
 
         // Spellchecker to ignore everything that isn't characters or numbers
         // and replace lowercase letters with upper case letters.
@@ -81,19 +85,20 @@
             var sn_value = document.getElementById("sn_id").value;
             var ml_url = "https://portal.masterloop.net/#/devices/general/" + sn_value;
             var sn_length = document.getElementById("sn_id").value.length;
-            if (sn_value === "" || sn_length !== 8) {
-                return false;
-            }
-            else if (sn_value.startsWith("EC") === true
+            if 
+                (sn_length === 8 && 
+                (sn_value.startsWith("EC") === true
                 || sn_value.startsWith("EH") === true
                 || sn_value.startsWith("QC") === true
-                || sn_value.startsWith("QH") === true) {
+                || sn_value.startsWith("QH") === true)) {
                 document.getElementById("ml_embed").src = ml_url;
             }
-            else if (sn_value.startsWith("EC") === false
-                || sn_value.startsWith("EH") === false
-                || sn_value.startsWith("QC") === false
-                || sn_value.startsWith("QH") === false) {
+            else if
+            (sn_value === "") {
+                return false
+            }
+            else {
+                alert("Check serial number");
                 return false;
             }
         }
@@ -102,160 +107,174 @@
             var sn_value = document.getElementById("sn_id").value;
             var Observations_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value;
             var sn_length = document.getElementById("sn_id").value.length;
-            if (sn_value === "" || sn_length !== 8) {
-                return false;
-            }
-            else if (sn_value.startsWith("EC") === true
+            if 
+                (sn_length === 8 && 
+                (sn_value.startsWith("EC") === true
                 || sn_value.startsWith("EH") === true
                 || sn_value.startsWith("QC") === true
-                || sn_value.startsWith("QH") === true) {
+                || sn_value.startsWith("QH") === true)) {
                 document.getElementById("ml_embed").src = Observations_url;
             }
-            else if (sn_value.startsWith("EC") === false
-                || sn_value.startsWith("EH") === false
-                || sn_value.startsWith("QC") === false
-                || sn_value.startsWith("QH") === false) {
+            else if
+            (sn_value === "") {
+                return false
+            }
+            else {
+                alert("Check serial number");
                 return false;
             }
-
         }
+
         function Settings() {
             var sn_value = document.getElementById("sn_id").value;
             var Settings_url = "https://portal.masterloop.net/#/devices/settings/" + sn_value;
             var sn_length = document.getElementById("sn_id").value.length;
-            if (sn_value === "" || sn_length !== 8) {
-                return false;
-            }
-            else if (sn_value.startsWith("EC") === true
+            if 
+                (sn_length === 8 && 
+                (sn_value.startsWith("EC") === true
                 || sn_value.startsWith("EH") === true
                 || sn_value.startsWith("QC") === true
-                || sn_value.startsWith("QH") === true) {
+                || sn_value.startsWith("QH") === true)) {
                 document.getElementById("ml_embed").src = Settings_url;
             }
-            else if (sn_value.startsWith("EC") === false
-                || sn_value.startsWith("EH") === false
-                || sn_value.startsWith("QC") === false
-                || sn_value.startsWith("QH") === false) {
+            else if
+            (sn_value === "") {
+                return false
+            }
+            else {
+                alert("Check serial number");
                 return false;
             }
         }
+
         function Commands() {
             var sn_value = document.getElementById("sn_id").value;
             var Commands_url = "https://portal.masterloop.net/#/devices/quickCommands/" + sn_value;
             var sn_length = document.getElementById("sn_id").value.length;
-            if (sn_value === "" || sn_length !== 8) {
-                return false;
-            }
-            else if (sn_value.startsWith("EC") === true
+            if 
+                (sn_length === 8 && 
+                (sn_value.startsWith("EC") === true
                 || sn_value.startsWith("EH") === true
                 || sn_value.startsWith("QC") === true
-                || sn_value.startsWith("QH") === true) {
+                || sn_value.startsWith("QH") === true)) {
                 document.getElementById("ml_embed").src = Commands_url;
             }
-            else if (sn_value.startsWith("EC") === false
-                || sn_value.startsWith("EH") === false
-                || sn_value.startsWith("QC") === false
-                || sn_value.startsWith("QH") === false) {
+            else if
+            (sn_value === "") {
+                return false
+            }
+            else {
+                alert("Check serial number");
                 return false;
             }
         }
+
         function History() {
             var sn_value = document.getElementById("sn_id").value;
             var History_url = "https://portal.masterloop.net/#/devices/" + sn_value + "/commandsHistory";
             var sn_length = document.getElementById("sn_id").value.length;
-            if (sn_value === "" || sn_length !== 8) {
-                return false;
-            }
-            else if (sn_value.startsWith("EC") === true
+            if 
+                (sn_length === 8 && 
+                (sn_value.startsWith("EC") === true
                 || sn_value.startsWith("EH") === true
                 || sn_value.startsWith("QC") === true
-                || sn_value.startsWith("QH") === true) {
+                || sn_value.startsWith("QH") === true)) {
                 document.getElementById("ml_embed").src = History_url;
             }
-            else if (sn_value.startsWith("EC") === false
-                || sn_value.startsWith("EH") === false
-                || sn_value.startsWith("QC") === false
-                || sn_value.startsWith("QH") === false) {
+            else if
+            (sn_value === "") {
+                return false
+            }
+            else {
+                alert("Check serial number");
                 return false;
             }
         }
+
         function chargerPlots() {
             var sn_value = document.getElementById("sn_id").value;
             var charger_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value + "/plots?filter=[21,38,46,96,104,109,110,114,120,182,183,184,185,194,195,196,197,198,199]";
             var sn_length = document.getElementById("sn_id").value.length;
-            if (sn_value === "" || sn_length !== 8) {
-                return false;
-            }
-            else if (sn_value.startsWith("EC") === true
+            if 
+                (sn_length === 8 && 
+                (sn_value.startsWith("EC") === true
                 || sn_value.startsWith("EH") === true
                 || sn_value.startsWith("QC") === true
-                || sn_value.startsWith("QH") === true) {
+                || sn_value.startsWith("QH") === true)) {
                 document.getElementById("ml_embed").src = charger_url;
             }
-            else if (sn_value.startsWith("EC") === false
-                || sn_value.startsWith("EH") === false
-                || sn_value.startsWith("QC") === false
-                || sn_value.startsWith("QH") === false) {
+            else if
+            (sn_value === "") {
+                return false
+            }
+            else {
+                alert("Check serial number");
                 return false;
             }
         }
+
         function networkPlots() {
             var sn_value = document.getElementById("sn_id").value;
             var network_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value + "/plots?filter=[11,46,130,131,132,136,150,141]";
             var sn_length = document.getElementById("sn_id").value.length;
-            if (sn_value === "" || sn_length !== 8) {
-                return false;
-            }
-            else if (sn_value.startsWith("EC") === true
+            if 
+                (sn_length === 8 && 
+                (sn_value.startsWith("EC") === true
                 || sn_value.startsWith("EH") === true
                 || sn_value.startsWith("QC") === true
-                || sn_value.startsWith("QH") === true) {
+                || sn_value.startsWith("QH") === true)) {
                 document.getElementById("ml_embed").src = network_url;
             }
-            else if (sn_value.startsWith("EC") === false
-                || sn_value.startsWith("EH") === false
-                || sn_value.startsWith("QC") === false
-                || sn_value.startsWith("QH") === false) {
+            else if
+            (sn_value === "") {
+                return false
+            }
+            else {
+                alert("Check serial number");
                 return false;
             }
         }
+
         function equalizerPlots() {
             var sn_value = document.getElementById("sn_id").value;
             var equalizer_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value + "/plots?filter=[29,31,32,33,34,35,36,37,38,39,50,70,87,88,89,100]";
             var sn_length = document.getElementById("sn_id").value.length;
-            if (sn_value === "" || sn_length !== 8) {
-                return false;
-            }
-            else if (sn_value.startsWith("EC") === true
+            if 
+                (sn_length === 8 && 
+                (sn_value.startsWith("EC") === true
                 || sn_value.startsWith("EH") === true
                 || sn_value.startsWith("QC") === true
-                || sn_value.startsWith("QH") === true) {
+                || sn_value.startsWith("QH") === true)) {
                 document.getElementById("ml_embed").src = equalizer_url;
             }
-            else if (sn_value.startsWith("EC") === false
-                || sn_value.startsWith("EH") === false
-                || sn_value.startsWith("QC") === false
-                || sn_value.startsWith("QH") === false) {
+            else if
+            (sn_value === "") {
+                return false
+            }
+            else {
+                alert("Check serial number");
                 return false;
             }
         }
+
         function deratePlots() {
             var sn_value = document.getElementById("sn_id").value;
             var derate_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value + "/plots?filter=[115,114,116,150,151,152,153,154,155,160,161,162,163,170]";
             var sn_length = document.getElementById("sn_id").value.length;
-            if (sn_value === "" || sn_length !== 8) {
-                return false;
-            }
-            else if (sn_value.startsWith("EC") === true
+            if 
+                (sn_length === 8 && 
+                (sn_value.startsWith("EC") === true
                 || sn_value.startsWith("EH") === true
                 || sn_value.startsWith("QC") === true
-                || sn_value.startsWith("QH") === true) {
+                || sn_value.startsWith("QH") === true)) {
                 document.getElementById("ml_embed").src = derate_url;
             }
-            else if (sn_value.startsWith("EC") === false
-                || sn_value.startsWith("EH") === false
-                || sn_value.startsWith("QC") === false
-                || sn_value.startsWith("QH") === false) {
+            else if
+            (sn_value === "") {
+                return false
+            }
+            else {
+                alert("Check serial number");
                 return false;
             }
         }
@@ -265,19 +284,20 @@
             var sn_value = document.getElementById("sn_id").value;
             var ml_url = "https://portal.masterloop.net/#/devices/general/" + sn_value;
             var sn_length = document.getElementById("sn_id").value.length;
-            if (sn_value === "" || sn_length !== 8) {
-                return false;
-            }
-            else if (sn_value.startsWith("EC") === true
+            if 
+                (sn_length === 8 && 
+                (sn_value.startsWith("EC") === true
                 || sn_value.startsWith("EH") === true
                 || sn_value.startsWith("QC") === true
-                || sn_value.startsWith("QH") === true) {
+                || sn_value.startsWith("QH") === true)) {
                 window.open(ml_url);
             }
-            else if (sn_value.startsWith("EC") === false
-                || sn_value.startsWith("EH") === false
-                || sn_value.startsWith("QC") === false
-                || sn_value.startsWith("QH") === false) {
+            else if
+            (sn_value === "") {
+                return false
+            }
+            else {
+                alert("Check serial number");
                 return false;
             }
         }
@@ -285,19 +305,20 @@
             var sn_value = document.getElementById("sn_id").value;
             var Observations_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value;
             var sn_length = document.getElementById("sn_id").value.length;
-            if (sn_value === "" || sn_length !== 8) {
-                return false;
-            }
-            else if (sn_value.startsWith("EC") === true
+            if 
+                (sn_length === 8 && 
+                (sn_value.startsWith("EC") === true
                 || sn_value.startsWith("EH") === true
                 || sn_value.startsWith("QC") === true
-                || sn_value.startsWith("QH") === true) {
+                || sn_value.startsWith("QH") === true)) {
                 window.open(Observations_url);
             }
-            else if (sn_value.startsWith("EC") === false
-                || sn_value.startsWith("EH") === false
-                || sn_value.startsWith("QC") === false
-                || sn_value.startsWith("QH") === false) {
+            else if
+            (sn_value === "") {
+                return false
+            }
+            else {
+                alert("Check serial number");
                 return false;
             }
         }
@@ -305,19 +326,20 @@
             var sn_value = document.getElementById("sn_id").value;
             var Settings_url = "https://portal.masterloop.net/#/devices/settings/" + sn_value;
             var sn_length = document.getElementById("sn_id").value.length;
-            if (sn_value === "" || sn_length !== 8) {
-                return false;
-            }
-            else if (sn_value.startsWith("EC") === true
+            if 
+                (sn_length === 8 && 
+                (sn_value.startsWith("EC") === true
                 || sn_value.startsWith("EH") === true
                 || sn_value.startsWith("QC") === true
-                || sn_value.startsWith("QH") === true) {
+                || sn_value.startsWith("QH") === true)) {
                 window.open(Settings_url);
             }
-            else if (sn_value.startsWith("EC") === false
-                || sn_value.startsWith("EH") === false
-                || sn_value.startsWith("QC") === false
-                || sn_value.startsWith("QH") === false) {
+            else if
+            (sn_value === "") {
+                return false
+            }
+            else {
+                alert("Check serial number");
                 return false;
             }
         }
@@ -325,19 +347,20 @@
             var sn_value = document.getElementById("sn_id").value;
             var Commands_url = "https://portal.masterloop.net/#/devices/quickCommands/" + sn_value;
             var sn_length = document.getElementById("sn_id").value.length;
-            if (sn_value === "" || sn_length !== 8) {
-                return false;
-            }
-            else if (sn_value.startsWith("EC") === true
+            if 
+                (sn_length === 8 && 
+                (sn_value.startsWith("EC") === true
                 || sn_value.startsWith("EH") === true
                 || sn_value.startsWith("QC") === true
-                || sn_value.startsWith("QH") === true) {
+                || sn_value.startsWith("QH") === true)) {
                 window.open(Commands_url);
             }
-            else if (sn_value.startsWith("EC") === false
-                || sn_value.startsWith("EH") === false
-                || sn_value.startsWith("QC") === false
-                || sn_value.startsWith("QH") === false) {
+            else if
+            (sn_value === "") {
+                return false
+            }
+            else {
+                alert("Check serial number");
                 return false;
             }
         }
@@ -345,19 +368,20 @@
             var sn_value = document.getElementById("sn_id").value;
             var History_url = "https://portal.masterloop.net/#/devices/" + sn_value + "/commandsHistory";
             var sn_length = document.getElementById("sn_id").value.length;
-            if (sn_value === "" || sn_length !== 8) {
-                return false;
-            }
-            else if (sn_value.startsWith("EC") === true
+            if 
+                (sn_length === 8 && 
+                (sn_value.startsWith("EC") === true
                 || sn_value.startsWith("EH") === true
                 || sn_value.startsWith("QC") === true
-                || sn_value.startsWith("QH") === true) {
+                || sn_value.startsWith("QH") === true)) {
                 window.open(History_url);
             }
-            else if (sn_value.startsWith("EC") === false
-                || sn_value.startsWith("EH") === false
-                || sn_value.startsWith("QC") === false
-                || sn_value.startsWith("QH") === false) {
+            else if
+            (sn_value === "") {
+                return false
+            }
+            else {
+                alert("Check serial number");
                 return false;
             }
         }
@@ -365,19 +389,20 @@
             var sn_value = document.getElementById("sn_id").value;
             var charger_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value + "/plots?filter=[21,38,46,96,104,109,110,114,120,182,183,184,185,194,195,196,197,198,199]";
             var sn_length = document.getElementById("sn_id").value.length;
-            if (sn_value === "" || sn_length !== 8) {
-                return false;
-            }
-            else if (sn_value.startsWith("EC") === true
+            if 
+                (sn_length === 8 && 
+                (sn_value.startsWith("EC") === true
                 || sn_value.startsWith("EH") === true
                 || sn_value.startsWith("QC") === true
-                || sn_value.startsWith("QH") === true) {
+                || sn_value.startsWith("QH") === true)) {
                 window.open(charger_url);
             }
-            else if (sn_value.startsWith("EC") === false
-                || sn_value.startsWith("EH") === false
-                || sn_value.startsWith("QC") === false
-                || sn_value.startsWith("QH") === false) {
+            else if
+            (sn_value === "") {
+                return false
+            }
+            else {
+                alert("Check serial number");
                 return false;
             }
         }
@@ -385,19 +410,20 @@
             var sn_value = document.getElementById("sn_id").value;
             var network_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value + "/plots?filter=[11,46,130,131,132,136,150,141]";
             var sn_length = document.getElementById("sn_id").value.length;
-            if (sn_value === "" || sn_length !== 8) {
-                return false;
-            }
-            else if (sn_value.startsWith("EC") === true
+            if 
+                (sn_length === 8 && 
+                (sn_value.startsWith("EC") === true
                 || sn_value.startsWith("EH") === true
                 || sn_value.startsWith("QC") === true
-                || sn_value.startsWith("QH") === true) {
+                || sn_value.startsWith("QH") === true)) {
                 window.open(network_url);
             }
-            else if (sn_value.startsWith("EC") === false
-                || sn_value.startsWith("EH") === false
-                || sn_value.startsWith("QC") === false
-                || sn_value.startsWith("QH") === false) {
+            else if
+            (sn_value === "") {
+                return false
+            }
+            else {
+                alert("Check serial number");
                 return false;
             }
         }
@@ -405,19 +431,20 @@
             var sn_value = document.getElementById("sn_id").value;
             var equalizer_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value + "/plots?filter=[20,31,32,33,34,35,36,50,70,87,89]";
             var sn_length = document.getElementById("sn_id").value.length;
-            if (sn_value === "" || sn_length !== 8) {
-                return false;
-            }
-            else if (sn_value.startsWith("EC") === true
+            if 
+                (sn_length === 8 && 
+                (sn_value.startsWith("EC") === true
                 || sn_value.startsWith("EH") === true
                 || sn_value.startsWith("QC") === true
-                || sn_value.startsWith("QH") === true) {
+                || sn_value.startsWith("QH") === true)) {
                 window.open(equalizer_url);
             }
-            else if (sn_value.startsWith("EC") === false
-                || sn_value.startsWith("EH") === false
-                || sn_value.startsWith("QC") === false
-                || sn_value.startsWith("QH") === false) {
+            else if
+            (sn_value === "") {
+                return false
+            }
+            else {
+                alert("Check serial number");
                 return false;
             }
         }
@@ -425,19 +452,20 @@
             var sn_value = document.getElementById("sn_id").value;
             var derate_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value + "/plots?filter=[115,114,116,150,151,152,153,154,155,160,161,162,163,170]";
             var sn_length = document.getElementById("sn_id").value.length;
-            if (sn_value === "" || sn_length !== 8) {
-                return false;
-            }
-            else if (sn_value.startsWith("EC") === true
+            if 
+                (sn_length === 8 && 
+                (sn_value.startsWith("EC") === true
                 || sn_value.startsWith("EH") === true
                 || sn_value.startsWith("QC") === true
-                || sn_value.startsWith("QH") === true) {
+                || sn_value.startsWith("QH") === true)) {
                 window.open(derate_url);
             }
-            else if (sn_value.startsWith("EC") === false
-                || sn_value.startsWith("EH") === false
-                || sn_value.startsWith("QC") === false
-                || sn_value.startsWith("QH") === false) {
+            else if
+            (sn_value === "") {
+                return false
+            }
+            else {
+                alert("Check serial number");
                 return false;
             }
         }
