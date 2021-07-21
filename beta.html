@@ -20,23 +20,29 @@
         <img src="https://eirikc.github.io/js-ml/favicon.ico" id="icon" alt="Quick Masterloop" width="auto"
             height="auto">
         <!-- Input field for serial numbers -->
-        <input type="text" name="Serial number" placeholder="Serial number" id="sn_id" maxlength="12" size="11" autofocus/>
+        <input type="text" name="Serial number" placeholder="Serial number" id="sn_id" maxlength="12" size="11"
+            autofocus />
 
         <!-- Buttons for Masterloop pages and quick plots.
             Will check if ctrl is pressed and will open a new tab if true -->
         <!--input type="submit" id="btnDevice" value="➡ Device" onclick="if(event.ctrlKey) setURLCTRL(); else setURL()"-->
         <button type="submit" id="btnObservations" class="small-buttons" value="Observations" title="Observations"
             onclick="if(event.ctrlKey) ObservationsCTRL(); else if(event.metaKey) ObservationsCTRL(); else Observations()"><img
-                src="https://eirikc.github.io/js-ml/Observations.svg" style="float: center; width: 30px;"></button>
+                src="https://eirikc.github.io/js-ml/Observations.svg" class="small-buttons"
+                style="float: center; width: 30px;"></button>
         <button type="submit" id="btnSettings" class="small-buttons" value="Settings" title="Settings"
             onclick="if(event.ctrlKey) SettingsCTRL(); else if(event.metaKey) SettingsCTRL(); else Settings()"><img
-                src="https://eirikc.github.io/js-ml/Settings.svg" style="float: center; width: 30px;"></button>
-        <button type="submit" id="btnCommands" class="small-buttons" value="Commands" title="Control - Quick commands"
+                src="https://eirikc.github.io/js-ml/Settings.svg" class="small-buttons"
+                style="float: center; width: 30px;"></button>
+        <button type="submit" id="btnCommands" class="small-buttons" class="small-buttons" value="Commands"
+            title="Control - Quick commands"
             onclick="if(event.ctrlKey) CommandsCTRL(); else if(event.metaKey) CommandsCTRL(); else Commands()"><img
                 src="https://eirikc.github.io/js-ml/Control.svg" style="float: center; width: 30px;"></button>
-        <button type="submit" id="btnHistory" class="small-buttons" value="History" title="Command history"
+        <button type="submit" id="btnHistory" class="small-buttons" class="small-buttons" value="History"
+            title="Command history"
             onclick="if(event.ctrlKey) HistoryCTRL(); else if(event.metaKey) HistoryCTRL(); else History()"><img
-                src="https://eirikc.github.io/js-ml/Commands.svg" style="float: center; width: 30px;"></button>
+                src="https://eirikc.github.io/js-ml/Commands.svg" class="small-buttons"
+                style="float: center; width: 30px;"></button>
         <button type="submit" id="btnCharging" value="Charging" title="Charging plots"
             onclick="if(event.ctrlKey) chargerPlotsCTRL(); else if(event.metaKey) chargerPlotsCTRL(); else chargerPlots()"><img
                 src="https://eirikc.github.io/js-ml/favicon.ico" style="float: center; width: 20px;">Charging</button>
@@ -52,6 +58,14 @@
         <button type="submit" id="btnList" value="List" title="Charger mode list"
             onclick="if(event.ctrlKey) listPlotsCTRL(); else if(event.metaKey) listPlotsCTRL(); else listPlots()"><img
                 src="https://eirikc.github.io/js-ml/favicon.ico" style="float: center; width: 20px;">Mode List</button>
+        <button type="submit" id="btnPortal" class="long-buttons" value="Portal"
+            title="Open the device in the cloud portal" onclick="openPortal()"><img
+                src="https://is5-ssl.mzstatic.com/image/thumb/Purple115/v4/32/18/cb/3218cb2a-1448-447b-ac64-ee8656702f17/AppIcon-0-0-1x_U007emarketing-0-0-0-10-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/492x0w.png"
+                style="float: center; width: 20px;">Open in portal</button>
+        <button type="submit" id="btnPortalInfo" class="mini-buttons" value="Info"
+            title="Nice information in the portal" onclick="openPortalInfo()"><img
+                src="https://eirikc.github.io/js-ml/information-outline.png"
+                style="float: center; width: 24px;"></button>
     </div>
 
 
@@ -61,8 +75,8 @@
 
     <script>
         // focus text cursor on serial number input on load.
-        window.onload = function() {
-        var input = document.getElementById("sn_id").focus();
+        window.onload = function () {
+            var input = document.getElementById("sn_id").focus();
         }
 
         // Spellchecker to ignore everything that isn't characters or numbers
@@ -88,16 +102,19 @@
             var sn_value = document.getElementById("sn_id").value;
             var ml_url = "https://portal.masterloop.net/#/devices/general/" + sn_value;
             var sn_length = document.getElementById("sn_id").value.length;
-            if 
-                (sn_length === 8 && 
+            if
+                (sn_length === 8 &&
                 (sn_value.startsWith("EC") === true
-                || sn_value.startsWith("EH") === true
-                || sn_value.startsWith("QC") === true
-                || sn_value.startsWith("QH") === true)) {
+                    || sn_value.startsWith("EH") === true
+                    || sn_value.startsWith("UK") === true
+                    || sn_value.startsWith("QC") === true
+                    || sn_value.startsWith("QP") === true
+                    || sn_value.startsWith("EQ") === true
+                    || sn_value.startsWith("QH") === true)) {
                 document.getElementById("ml_embed").src = ml_url;
             }
             else if
-            (sn_value === "") {
+                (sn_value === "") {
                 return false
             }
             else {
@@ -110,16 +127,19 @@
             var sn_value = document.getElementById("sn_id").value;
             var Observations_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value;
             var sn_length = document.getElementById("sn_id").value.length;
-            if 
-                (sn_length === 8 && 
+            if
+                (sn_length === 8 &&
                 (sn_value.startsWith("EC") === true
-                || sn_value.startsWith("EH") === true
-                || sn_value.startsWith("QC") === true
-                || sn_value.startsWith("QH") === true)) {
+                    || sn_value.startsWith("EH") === true
+                    || sn_value.startsWith("UK") === true
+                    || sn_value.startsWith("QC") === true
+                    || sn_value.startsWith("QP") === true
+                    || sn_value.startsWith("EQ") === true
+                    || sn_value.startsWith("QH") === true)) {
                 document.getElementById("ml_embed").src = Observations_url;
             }
             else if
-            (sn_value === "") {
+                (sn_value === "") {
                 return false
             }
             else {
@@ -132,16 +152,19 @@
             var sn_value = document.getElementById("sn_id").value;
             var Settings_url = "https://portal.masterloop.net/#/devices/settings/" + sn_value;
             var sn_length = document.getElementById("sn_id").value.length;
-            if 
-                (sn_length === 8 && 
+            if
+                (sn_length === 8 &&
                 (sn_value.startsWith("EC") === true
-                || sn_value.startsWith("EH") === true
-                || sn_value.startsWith("QC") === true
-                || sn_value.startsWith("QH") === true)) {
+                    || sn_value.startsWith("EH") === true
+                    || sn_value.startsWith("UK") === true
+                    || sn_value.startsWith("QC") === true
+                    || sn_value.startsWith("QP") === true
+                    || sn_value.startsWith("EQ") === true
+                    || sn_value.startsWith("QH") === true)) {
                 document.getElementById("ml_embed").src = Settings_url;
             }
             else if
-            (sn_value === "") {
+                (sn_value === "") {
                 return false
             }
             else {
@@ -154,16 +177,19 @@
             var sn_value = document.getElementById("sn_id").value;
             var Commands_url = "https://portal.masterloop.net/#/devices/quickCommands/" + sn_value;
             var sn_length = document.getElementById("sn_id").value.length;
-            if 
-                (sn_length === 8 && 
+            if
+                (sn_length === 8 &&
                 (sn_value.startsWith("EC") === true
-                || sn_value.startsWith("EH") === true
-                || sn_value.startsWith("QC") === true
-                || sn_value.startsWith("QH") === true)) {
+                    || sn_value.startsWith("EH") === true
+                    || sn_value.startsWith("UK") === true
+                    || sn_value.startsWith("QC") === true
+                    || sn_value.startsWith("QP") === true
+                    || sn_value.startsWith("EQ") === true
+                    || sn_value.startsWith("QH") === true)) {
                 document.getElementById("ml_embed").src = Commands_url;
             }
             else if
-            (sn_value === "") {
+                (sn_value === "") {
                 return false
             }
             else {
@@ -176,16 +202,19 @@
             var sn_value = document.getElementById("sn_id").value;
             var History_url = "https://portal.masterloop.net/#/devices/" + sn_value + "/commandsHistory";
             var sn_length = document.getElementById("sn_id").value.length;
-            if 
-                (sn_length === 8 && 
+            if
+                (sn_length === 8 &&
                 (sn_value.startsWith("EC") === true
-                || sn_value.startsWith("EH") === true
-                || sn_value.startsWith("QC") === true
-                || sn_value.startsWith("QH") === true)) {
+                    || sn_value.startsWith("EH") === true
+                    || sn_value.startsWith("UK") === true
+                    || sn_value.startsWith("QC") === true
+                    || sn_value.startsWith("QP") === true
+                    || sn_value.startsWith("EQ") === true
+                    || sn_value.startsWith("QH") === true)) {
                 document.getElementById("ml_embed").src = History_url;
             }
             else if
-            (sn_value === "") {
+                (sn_value === "") {
                 return false
             }
             else {
@@ -198,16 +227,19 @@
             var sn_value = document.getElementById("sn_id").value;
             var charger_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value + "/plots?filter=[21,38,46,96,104,109,110,114,120,182,183,184,185,194,195,196,197,198,199]";
             var sn_length = document.getElementById("sn_id").value.length;
-            if 
-                (sn_length === 8 && 
+            if
+                (sn_length === 8 &&
                 (sn_value.startsWith("EC") === true
-                || sn_value.startsWith("EH") === true
-                || sn_value.startsWith("QC") === true
-                || sn_value.startsWith("QH") === true)) {
+                    || sn_value.startsWith("EH") === true
+                    || sn_value.startsWith("UK") === true
+                    || sn_value.startsWith("QC") === true
+                    || sn_value.startsWith("QP") === true
+                    || sn_value.startsWith("EQ") === true
+                    || sn_value.startsWith("QH") === true)) {
                 document.getElementById("ml_embed").src = charger_url;
             }
             else if
-            (sn_value === "") {
+                (sn_value === "") {
                 return false
             }
             else {
@@ -220,16 +252,19 @@
             var sn_value = document.getElementById("sn_id").value;
             var network_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value + "/plots?filter=[11,46,130,131,132,136,150,141]";
             var sn_length = document.getElementById("sn_id").value.length;
-            if 
-                (sn_length === 8 && 
+            if
+                (sn_length === 8 &&
                 (sn_value.startsWith("EC") === true
-                || sn_value.startsWith("EH") === true
-                || sn_value.startsWith("QC") === true
-                || sn_value.startsWith("QH") === true)) {
+                    || sn_value.startsWith("EH") === true
+                    || sn_value.startsWith("UK") === true
+                    || sn_value.startsWith("QC") === true
+                    || sn_value.startsWith("QP") === true
+                    || sn_value.startsWith("EQ") === true
+                    || sn_value.startsWith("QH") === true)) {
                 document.getElementById("ml_embed").src = network_url;
             }
             else if
-            (sn_value === "") {
+                (sn_value === "") {
                 return false
             }
             else {
@@ -242,20 +277,20 @@
             var sn_value = document.getElementById("sn_id").value;
             var equalizer_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value + "/plots?filter=[29,31,32,33,34,35,36,37,38,39,50,70,87,88,89,100]";
             var sn_length = document.getElementById("sn_id").value.length;
-            if 
-                (sn_length === 8 && 
-                (sn_value.startsWith("EC") === true
-                || sn_value.startsWith("EH") === true
-                || sn_value.startsWith("QC") === true
-                || sn_value.startsWith("QH") === true)) {
+            if
+                (sn_length === 8 &&
+                (sn_value.startsWith("QC") === true
+                    || sn_value.startsWith("QP") === true
+                    || sn_value.startsWith("EQ") === true
+                    || sn_value.startsWith("QH") === true)) {
                 document.getElementById("ml_embed").src = equalizer_url;
             }
             else if
-            (sn_value === "") {
+                (sn_value === "") {
                 return false
             }
             else {
-                alert("Check serial number");
+                alert("Check Equalizer serial number");
                 return false;
             }
         }
@@ -264,16 +299,19 @@
             var sn_value = document.getElementById("sn_id").value;
             var derate_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value + "/plots?filter=[115,114,116,150,151,152,153,154,155,160,161,162,163,170]";
             var sn_length = document.getElementById("sn_id").value.length;
-            if 
-                (sn_length === 8 && 
+            if
+                (sn_length === 8 &&
                 (sn_value.startsWith("EC") === true
-                || sn_value.startsWith("EH") === true
-                || sn_value.startsWith("QC") === true
-                || sn_value.startsWith("QH") === true)) {
+                    || sn_value.startsWith("EH") === true
+                    || sn_value.startsWith("UK") === true
+                    || sn_value.startsWith("QC") === true
+                    || sn_value.startsWith("QP") === true
+                    || sn_value.startsWith("EQ") === true
+                    || sn_value.startsWith("QH") === true)) {
                 document.getElementById("ml_embed").src = derate_url;
             }
             else if
-            (sn_value === "") {
+                (sn_value === "") {
                 return false
             }
             else {
@@ -285,16 +323,19 @@
             var sn_value = document.getElementById("sn_id").value;
             var list_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value + "/table?filter=[38,46,100,109,110,114,120,128]";
             var sn_length = document.getElementById("sn_id").value.length;
-            if 
-                (sn_length === 8 && 
+            if
+                (sn_length === 8 &&
                 (sn_value.startsWith("EC") === true
-                || sn_value.startsWith("EH") === true
-                || sn_value.startsWith("QC") === true
-                || sn_value.startsWith("QH") === true)) {
+                    || sn_value.startsWith("EH") === true
+                    || sn_value.startsWith("UK") === true
+                    || sn_value.startsWith("QC") === true
+                    || sn_value.startsWith("QP") === true
+                    || sn_value.startsWith("EQ") === true
+                    || sn_value.startsWith("QH") === true)) {
                 document.getElementById("ml_embed").src = list_url;
             }
             else if
-            (sn_value === "") {
+                (sn_value === "") {
                 return false
             }
             else {
@@ -303,22 +344,74 @@
             }
         }
 
+        function openPortal() {
+            var sn_value = document.getElementById("sn_id").value;
+            var portal_url = "https://easee.cloud/support/products/navigate-to-site/" + sn_value;
+            var sn_length = document.getElementById("sn_id").value.length;
+            if
+                (sn_length === 8 &&
+                (sn_value.startsWith("EC") === true
+                    || sn_value.startsWith("EH") === true
+                    || sn_value.startsWith("UK") === true
+                    || sn_value.startsWith("QC") === true
+                    || sn_value.startsWith("QP") === true
+                    || sn_value.startsWith("EQ") === true
+                    || sn_value.startsWith("QH") === true)) {
+                window.open(portal_url);
+            }
+            else if
+                (sn_value === "") {
+                return false
+            }
+            else {
+                alert("Check serial number");
+                return false;
+            }
+        }
+
+        function openPortalInfo() {
+            var sn_value = document.getElementById("sn_id").value;
+            var portalInfo_url = "https://easee.cloud/support/history/device-view/" + sn_value + "/list-and-chart?lists=118,21,80,96,36,20,107,137,46,109,114,120,116,115";
+            var sn_length = document.getElementById("sn_id").value.length;
+            if
+                (sn_length === 8 &&
+                (sn_value.startsWith("EC") === true
+                    || sn_value.startsWith("EH") === true
+                    || sn_value.startsWith("UK") === true
+                    || sn_value.startsWith("QC") === true
+                    || sn_value.startsWith("QP") === true
+                    || sn_value.startsWith("EQ") === true
+                    || sn_value.startsWith("QH") === true)) {
+                window.open(portalInfo_url);
+            }
+            else if
+                (sn_value === "") {
+                return false
+            }
+            else {
+                alert("Check serial number");
+                return false;
+            }
+        }
 
         //CTRL + mouse click functions to open new tabs
         function setURLCTRL() {
             var sn_value = document.getElementById("sn_id").value;
             var ml_url = "https://portal.masterloop.net/#/devices/general/" + sn_value;
             var sn_length = document.getElementById("sn_id").value.length;
-            if 
-                (sn_length === 8 && 
+            if
+                (sn_length === 8 &&
                 (sn_value.startsWith("EC") === true
-                || sn_value.startsWith("EH") === true
-                || sn_value.startsWith("QC") === true
-                || sn_value.startsWith("QH") === true)) {
+                    || sn_value.startsWith("EH") === true
+                    || sn_value.startsWith("UK") === true
+                    || sn_value.startsWith("QC") === true
+                    || sn_value.startsWith("QP") === true
+                    || sn_value.startsWith("EQ") === true
+                    || sn_value.startsWith("QH") === true)) {
                 window.open(ml_url);
             }
             else if
-            (sn_value === "") {
+                (sn_value === "") {
                 return false
             }
             else {
@@ -330,16 +423,19 @@
             var sn_value = document.getElementById("sn_id").value;
             var Observations_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value;
             var sn_length = document.getElementById("sn_id").value.length;
-            if 
-                (sn_length === 8 && 
+            if
+                (sn_length === 8 &&
                 (sn_value.startsWith("EC") === true
-                || sn_value.startsWith("EH") === true
-                || sn_value.startsWith("QC") === true
-                || sn_value.startsWith("QH") === true)) {
+                    || sn_value.startsWith("EH") === true
+                    || sn_value.startsWith("UK") === true
+                    || sn_value.startsWith("QC") === true
+                    || sn_value.startsWith("QP") === true
+                    || sn_value.startsWith("EQ") === true
+                    || sn_value.startsWith("QH") === true)) {
                 window.open(Observations_url);
             }
             else if
-            (sn_value === "") {
+                (sn_value === "") {
                 return false
             }
             else {
@@ -351,16 +447,19 @@
             var sn_value = document.getElementById("sn_id").value;
             var Settings_url = "https://portal.masterloop.net/#/devices/settings/" + sn_value;
             var sn_length = document.getElementById("sn_id").value.length;
-            if 
-                (sn_length === 8 && 
+            if
+                (sn_length === 8 &&
                 (sn_value.startsWith("EC") === true
-                || sn_value.startsWith("EH") === true
-                || sn_value.startsWith("QC") === true
-                || sn_value.startsWith("QH") === true)) {
+                    || sn_value.startsWith("EH") === true
+                    || sn_value.startsWith("UK") === true
+                    || sn_value.startsWith("QC") === true
+                    || sn_value.startsWith("QP") === true
+                    || sn_value.startsWith("EQ") === true
+                    || sn_value.startsWith("QH") === true)) {
                 window.open(Settings_url);
             }
             else if
-            (sn_value === "") {
+                (sn_value === "") {
                 return false
             }
             else {
@@ -372,16 +471,19 @@
             var sn_value = document.getElementById("sn_id").value;
             var Commands_url = "https://portal.masterloop.net/#/devices/quickCommands/" + sn_value;
             var sn_length = document.getElementById("sn_id").value.length;
-            if 
-                (sn_length === 8 && 
+            if
+                (sn_length === 8 &&
                 (sn_value.startsWith("EC") === true
-                || sn_value.startsWith("EH") === true
-                || sn_value.startsWith("QC") === true
-                || sn_value.startsWith("QH") === true)) {
+                    || sn_value.startsWith("EH") === true
+                    || sn_value.startsWith("UK") === true
+                    || sn_value.startsWith("QC") === true
+                    || sn_value.startsWith("QP") === true
+                    || sn_value.startsWith("EQ") === true
+                    || sn_value.startsWith("QH") === true)) {
                 window.open(Commands_url);
             }
             else if
-            (sn_value === "") {
+                (sn_value === "") {
                 return false
             }
             else {
@@ -393,16 +495,19 @@
             var sn_value = document.getElementById("sn_id").value;
             var History_url = "https://portal.masterloop.net/#/devices/" + sn_value + "/commandsHistory";
             var sn_length = document.getElementById("sn_id").value.length;
-            if 
-                (sn_length === 8 && 
+            if
+                (sn_length === 8 &&
                 (sn_value.startsWith("EC") === true
-                || sn_value.startsWith("EH") === true
-                || sn_value.startsWith("QC") === true
-                || sn_value.startsWith("QH") === true)) {
+                    || sn_value.startsWith("EH") === true
+                    || sn_value.startsWith("UK") === true
+                    || sn_value.startsWith("QC") === true
+                    || sn_value.startsWith("QP") === true
+                    || sn_value.startsWith("EQ") === true
+                    || sn_value.startsWith("QH") === true)) {
                 window.open(History_url);
             }
             else if
-            (sn_value === "") {
+                (sn_value === "") {
                 return false
             }
             else {
@@ -414,16 +519,19 @@
             var sn_value = document.getElementById("sn_id").value;
             var charger_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value + "/plots?filter=[21,38,46,96,104,109,110,114,120,182,183,184,185,194,195,196,197,198,199]";
             var sn_length = document.getElementById("sn_id").value.length;
-            if 
-                (sn_length === 8 && 
+            if
+                (sn_length === 8 &&
                 (sn_value.startsWith("EC") === true
-                || sn_value.startsWith("EH") === true
-                || sn_value.startsWith("QC") === true
-                || sn_value.startsWith("QH") === true)) {
+                    || sn_value.startsWith("EH") === true
+                    || sn_value.startsWith("UK") === true
+                    || sn_value.startsWith("QC") === true
+                    || sn_value.startsWith("QP") === true
+                    || sn_value.startsWith("EQ") === true
+                    || sn_value.startsWith("QH") === true)) {
                 window.open(charger_url);
             }
             else if
-            (sn_value === "") {
+                (sn_value === "") {
                 return false
             }
             else {
@@ -435,16 +543,19 @@
             var sn_value = document.getElementById("sn_id").value;
             var network_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value + "/plots?filter=[11,46,130,131,132,136,150,141]";
             var sn_length = document.getElementById("sn_id").value.length;
-            if 
-                (sn_length === 8 && 
+            if
+                (sn_length === 8 &&
                 (sn_value.startsWith("EC") === true
-                || sn_value.startsWith("EH") === true
-                || sn_value.startsWith("QC") === true
-                || sn_value.startsWith("QH") === true)) {
+                    || sn_value.startsWith("EH") === true
+                    || sn_value.startsWith("UK") === true
+                    || sn_value.startsWith("QC") === true
+                    || sn_value.startsWith("QP") === true
+                    || sn_value.startsWith("EQ") === true
+                    || sn_value.startsWith("QH") === true)) {
                 window.open(network_url);
             }
             else if
-            (sn_value === "") {
+                (sn_value === "") {
                 return false
             }
             else {
@@ -456,20 +567,20 @@
             var sn_value = document.getElementById("sn_id").value;
             var equalizer_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value + "/plots?filter=[20,31,32,33,34,35,36,50,70,87,89]";
             var sn_length = document.getElementById("sn_id").value.length;
-            if 
-                (sn_length === 8 && 
-                (sn_value.startsWith("EC") === true
-                || sn_value.startsWith("EH") === true
-                || sn_value.startsWith("QC") === true
-                || sn_value.startsWith("QH") === true)) {
+            if
+                (sn_length === 8 &&
+                (sn_value.startsWith("QC") === true
+                    || sn_value.startsWith("QP") === true
+                    || sn_value.startsWith("EQ") === true
+                    || sn_value.startsWith("QH") === true)) {
                 window.open(equalizer_url);
             }
             else if
-            (sn_value === "") {
+                (sn_value === "") {
                 return false
             }
             else {
-                alert("Check serial number");
+                alert("Check Equalizer serial number");
                 return false;
             }
         }
@@ -477,16 +588,19 @@
             var sn_value = document.getElementById("sn_id").value;
             var derate_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value + "/plots?filter=[115,114,116,150,151,152,153,154,155,160,161,162,163,170]";
             var sn_length = document.getElementById("sn_id").value.length;
-            if 
-                (sn_length === 8 && 
+            if
+                (sn_length === 8 &&
                 (sn_value.startsWith("EC") === true
-                || sn_value.startsWith("EH") === true
-                || sn_value.startsWith("QC") === true
-                || sn_value.startsWith("QH") === true)) {
+                    || sn_value.startsWith("EH") === true
+                    || sn_value.startsWith("UK") === true
+                    || sn_value.startsWith("QC") === true
+                    || sn_value.startsWith("QP") === true
+                    || sn_value.startsWith("EQ") === true
+                    || sn_value.startsWith("QH") === true)) {
                 window.open(derate_url);
             }
             else if
-            (sn_value === "") {
+                (sn_value === "") {
                 return false
             }
             else {
@@ -496,18 +610,21 @@
         }
         function listPlotsCTRL() {
             var sn_value = document.getElementById("sn_id").value;
-            var list_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value + "/plots?filter=[115,114,116,150,151,152,153,154,155,160,161,162,163,170]";
+            var list_url = "https://portal.masterloop.net/#/devices/observations/" + sn_value + "/table?filter=[38,46,100,109,110,114,120,128]";
             var sn_length = document.getElementById("sn_id").value.length;
-            if 
-                (sn_length === 8 && 
+            if
+                (sn_length === 8 &&
                 (sn_value.startsWith("EC") === true
-                || sn_value.startsWith("EH") === true
-                || sn_value.startsWith("QC") === true
-                || sn_value.startsWith("QH") === true)) {
+                    || sn_value.startsWith("EH") === true
+                    || sn_value.startsWith("UK") === true
+                    || sn_value.startsWith("QC") === true
+                    || sn_value.startsWith("QP") === true
+                    || sn_value.startsWith("EQ") === true
+                    || sn_value.startsWith("QH") === true)) {
                 window.open(list_url);
             }
             else if
-            (sn_value === "") {
+                (sn_value === "") {
                 return false
             }
             else {
@@ -561,6 +678,7 @@
     .toolbar button img {
         vertical-align: middle;
         padding-right: 5px;
+        margin-bottom: 3px;
     }
 
     button.small-buttons {
@@ -571,6 +689,43 @@
         padding-top: 0px;
         padding-bottom: 0px;
         padding-left: 4px;
+        margin-bottom: 7px !important;
+    }
+
+    button.small-buttons img {
+        margin-top: 2px !important;
+    }
+
+    button.mini-buttons {
+        flex-basis: 0px !important;
+        min-width: 40px;
+        padding: auto;
+        padding-right: 0px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+        padding-left: 4px;
+        margin-bottom: 8px !important;
+    }
+
+    button.mini-buttons img {
+        margin-top: 0px !important;
+    }
+
+    button.long-buttons {
+        flex-basis: 0px !important;
+        min-width: 160px;
+        padding: auto;
+        padding-right: 0px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+        padding-left: 4px;
+    }
+
+    button.long-buttons img {
+        vertical-align: middle;
+        padding-right: 0px !important;
+        margin-right: 5px;
+        border-radius: 2.5px;
     }
 
     #btnCommands {
@@ -637,9 +792,10 @@
     ::placeholder {
         color: rgb(161, 161, 161)
     }
+
     html {
-    overflow-y: overlay;
-}
+        overflow-y: overlay;
+    }
 </style>
 
 </html>
